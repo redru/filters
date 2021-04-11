@@ -21,7 +21,7 @@ public interface Filter<T> extends Predicate<T> {
   default Filter<T> thenFiltering(Predicate<? super T> predicate) {
     Objects.requireNonNull(predicate);
 
-    return t -> this.test(t) && predicate.test(t);
+    return (T t) -> this.test(t) && predicate.test(t);
   }
 
 }
