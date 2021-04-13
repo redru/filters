@@ -53,11 +53,39 @@ class FiltersTest {
   }
 
   @Test
-  @DisplayName("Filter using 'equals' static method")
+  @DisplayName("Filter using 'objectEquals' static method from Filters")
   void testFilter_3() {
     Filter<TestObject> filter = Filter.filtering(TestObject.class)
-        .thenFiltering(Filter.equals(TestObject::getVarStr, "A"))
-        .thenFiltering(Filter.equals(TestObject::getVarInt, 3));
+        .thenFiltering(Filters.objectEquals(TestObject::getVarStr, "A"))
+        .thenFiltering(Filters.objectEquals(TestObject::getVarInt, 3));
+
+    List<TestObject> filtered = testObjectList.stream()
+        .filter(filter)
+        .collect(Collectors.toList());
+
+    assert filtered.size() == 1;
+  }
+
+  @Test
+  @DisplayName("Filter using 'objectEquals' method from Filter")
+  void testFilter_4() {
+    Filter<TestObject> filter = Filter.filtering(TestObject.class)
+        .objectEquals(TestObject::getVarStr, "A")
+        .objectEquals(TestObject::getVarInt, 3);
+
+    List<TestObject> filtered = testObjectList.stream()
+        .filter(filter)
+        .collect(Collectors.toList());
+
+    assert filtered.size() == 1;
+  }
+
+  @Test
+  @DisplayName("Filter using 'objectEquals' and 'objectNotEquals' method from Filter")
+  void testFilter_5() {
+    Filter<TestObject> filter = Filter.filtering(TestObject.class)
+        .objectEquals(TestObject::getVarStr, "A")
+        .objectNotEquals(TestObject::getVarInt, 4);
 
     List<TestObject> filtered = testObjectList.stream()
         .filter(filter)
