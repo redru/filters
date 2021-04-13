@@ -5,6 +5,21 @@ The Filter class allow developer to create dynamic filters in a fluent way like 
 ## Usage
 
 ```java
+public class TestObject {
+
+  private final String varStr;
+  private final Integer varInt;
+
+  public TestObject(String varStr, Integer varInt) {
+    this.varStr = varStr;
+    this.varInt = varInt;
+  }
+
+  // Getters / Setters
+
+}
+```
+```java
 Filter<String> filter = Filter.filtering((String v) -> v.contains("A"))
     .thenFiltering(v -> v.contains("B"));
 
