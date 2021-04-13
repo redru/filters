@@ -25,14 +25,14 @@ public interface Filter<T> extends Predicate<T> {
     return (T t) -> this.test(t) && predicate.test(t);
   }
 
-  default <U> Filter<T> objectEquals(Function<? super T, ? extends U> keyExtractor, Object other) {
+  default <U> Filter<T> objectEquals(Function<? super T, ? extends U> keyExtractor, U other) {
     Objects.requireNonNull(keyExtractor);
     Objects.requireNonNull(other);
 
     return (T t) -> this.test(t) && Objects.equals(keyExtractor.apply(t), other);
   }
 
-  default <U> Filter<T> objectNotEquals(Function<? super T, ? extends U> keyExtractor, Object other) {
+  default <U> Filter<T> objectNotEquals(Function<? super T, ? extends U> keyExtractor, U other) {
     Objects.requireNonNull(keyExtractor);
     Objects.requireNonNull(other);
 

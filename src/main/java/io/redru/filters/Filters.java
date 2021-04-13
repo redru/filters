@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 public interface Filters {
 
-  static <T, U> Predicate<T> objectEquals(Function<? super T, ? extends U> keyExtractor, Object other) {
+  static <T, U> Predicate<T> objectEquals(Function<? super T, ? extends U> keyExtractor, U other) {
     Objects.requireNonNull(keyExtractor);
     Objects.requireNonNull(other);
 
