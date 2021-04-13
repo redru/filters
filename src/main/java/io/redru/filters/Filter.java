@@ -1,6 +1,7 @@
 package io.redru.filters;
 
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 @FunctionalInterface
@@ -22,6 +23,13 @@ public interface Filter<T> extends Predicate<T> {
     Objects.requireNonNull(predicate);
 
     return (T t) -> this.test(t) && predicate.test(t);
+  }
+
+  static <T, U> Predicate<T> equals(Function<? super T, ? extends U> keyExtractor, Object other) {
+    Objects.requireNonNull(keyExtractor);
+    Objects.requireNonNull(other);
+
+    return (T t) -> Objects.equals(keyExtractor.apply(t), other);
   }
 
 }

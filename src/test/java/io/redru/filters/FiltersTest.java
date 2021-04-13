@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class FiltersTest {
+class FiltersTest {
 
   private List<String> stringList;
   private List<TestObject> testObjectList;
@@ -50,6 +50,20 @@ public class FiltersTest {
         .collect(Collectors.toList());
 
     assert filtered.size() == 2;
+  }
+
+  @Test
+  @DisplayName("Filter using 'equals' static method")
+  void testFilter_3() {
+    Filter<TestObject> filter = Filter.filtering(TestObject.class)
+        .thenFiltering(Filter.equals(TestObject::getVarStr, "A"))
+        .thenFiltering(Filter.equals(TestObject::getVarInt, 3));
+
+    List<TestObject> filtered = testObjectList.stream()
+        .filter(filter)
+        .collect(Collectors.toList());
+
+    assert filtered.size() == 1;
   }
 
 }
